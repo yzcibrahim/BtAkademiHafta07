@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h3>Kelimeler</h3>
+<img id="loading" src="~/gif/loading.gif" height="40" />
+<div id="wordListTable">
+
+</div>
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            //   alert("asdasd");
+            refresh();
+            //  $("#wordListTable").load("/Word/ListPartial?test=x");
+        });
+
+        function refresh() {
+            $("#wordListTable").load("/Word/ListPartial", { word: "x" },
+                function () {
+                    console.log("datalar geldiiii");
+                    $("#loading").hide();
+                });
+        }
+    </script>
+
+}
