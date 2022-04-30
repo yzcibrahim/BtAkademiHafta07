@@ -20,10 +20,11 @@ namespace Hafta07_01WordMaster.Models
         [MyRequired]
         public string Meaning { get; set; }
 
-        [Range(18,28)]
-        public int Yas { get; set; }
 
-        [EmailAddress(ErrorMessage = "Geçerli bir e-mail adresi giriniz")]
-        public string Email { get; set; }
+        //[Range(18,28)]
+        //public int Yas { get; set; }
+
+        //[EmailAddress(ErrorMessage = "Geçerli bir e-mail adresi giriniz")]
+        //public string Email { get; set; }
     }
 }

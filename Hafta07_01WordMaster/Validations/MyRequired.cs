@@ -19,4 +19,6 @@ namespace Hafta07_01WordMaster.Validations
                 return true;
         }
     }
+
+    
 }

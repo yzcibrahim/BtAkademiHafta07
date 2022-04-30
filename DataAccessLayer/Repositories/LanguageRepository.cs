@@ -9,19 +9,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class WordRepository : BaseRepository<WordDefinition>, IRepositoryWord
+    public class LanguageRepository :BaseRepository<Language>, IRepositoryLanguage
     {
-        public WordRepository(WordMasterDbContext context):base(context)
+        public LanguageRepository(WordMasterDbContext context):base(context)
         {
-            
+            _context = context;
         }
-
-        public override List<WordDefinition> List()
-        {
-            return base.List();
-        }
+      
     }
-
-    
-   
 }

@@ -16,6 +16,8 @@ namespace DataAccessLayer
         }
 
         public DbSet<WordDefinition> WordDefinitions { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<WordMeaning> WordMeanings { get; set; }
 
     }
 }

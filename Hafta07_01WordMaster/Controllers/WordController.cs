@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
+using Hafta07_01WordMaster.Helpers;
 using Hafta07_01WordMaster.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,19 +26,8 @@ namespace Hafta07_01WordMaster.Controllers
         {
             List<WordDefinition> liste = _repository.List();
 
-            List<WordDefinitionViewModel> model = new List<WordDefinitionViewModel>();
+            List<WordDefinitionViewModel> model = Mapper.DefListToDefViewList(liste);
 
-            foreach (var item in liste)
-            {
-                WordDefinitionViewModel wd = new WordDefinitionViewModel()
-                {
-                    Id = item.Id,
-                    Meaning = item.Meaning,
-                    Word = item.Word
-                };
-
-                model.Add(wd);
-            }
             return PartialView(model);
         }
 

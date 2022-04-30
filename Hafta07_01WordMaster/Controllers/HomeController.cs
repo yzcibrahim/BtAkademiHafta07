@@ -16,6 +16,12 @@ namespace Hafta07_01WordMaster.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
+            //List<string> liste = new List<string>();
+            //liste.Add("asd");
+
+            //List<int> liste2 = new List<int>();
+            //liste2.Add(5);
         }
 
         public IActionResult Index()

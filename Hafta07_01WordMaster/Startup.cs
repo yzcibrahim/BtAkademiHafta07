@@ -29,6 +29,8 @@ namespace Hafta07_01WordMaster
             services.AddDbContext<WordMasterDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("MssqlConnectionString")));
             services.AddControllersWithViews();
             services.AddScoped<IRepositoryWord, WordRepository>();
+            services.AddScoped<IRepositoryLanguage, LanguageRepository>();
+            services.AddScoped<IRepositoryMeaning,  WordMeaningRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

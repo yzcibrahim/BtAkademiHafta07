@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IRepositoryWord:IRepositoryBase<WordDefinition>
+    public interface IRepositoryLanguage:IRepositoryBase<Language>
     {
-        
     }
 }
