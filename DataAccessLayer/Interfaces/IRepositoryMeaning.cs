@@ -9,6 +9,8 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IRepositoryMeaning : IRepositoryBase<WordMeaning>
     {
-        
+        List<WordMeaning> ListByDefId(int defId);
+
+
     }
 }

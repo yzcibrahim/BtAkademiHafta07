@@ -16,7 +16,7 @@
             {
                 <div class="form-group">
                     <label asp-for="Id" class="control-label"></label>
-                    <input asp-for="Id" class="form-control" />
+                    <input readonly asp-for="Id" class="form-control" />
                     <span asp-validation-for="Id" class="text-danger"></span>
                 </div>
             }
@@ -25,26 +25,35 @@
                 <input asp-for="Word" class="form-control" />
                 <span asp-validation-for="Word" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Meaning" class="control-label"></label>
-                <input asp-for="Meaning" class="form-control" />
-                <span asp-validation-for="Meaning" class="text-danger"></span>
-            </div>
+
             @*<div class="form-group">
-                <label asp-for="Yas" class="control-label"></label>
-                <input asp-for="Yas" class="form-control" />
-                <span asp-validation-for="Yas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="Yas" class="control-label"></label>
+                    <input asp-for="Yas" class="form-control" />
+                    <span asp-validation-for="Yas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
                 @*  <input type="button" onclick="return submitMyForm()" value="Kaydet" class="btn btn-primary" />*@
             </div>
         </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+        <div>
+            <input type="text" id="WordMeaning" />
+
+            <input class="btn btn-success" type="button" onclick="postMeaning()" value="Kaydet" />
+        </div>
+        <div class="row">
+            <div id="detaylarDiv" class="col-md-10">
+                
+            </div>
+        </div>
     </div>
 </div>
 
@@ -55,7 +64,73 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
- <script>
+<script>
+
+     $(document).ready(function () {
+        // loadDetail();
+         loadByLoad();
+        // $('#detaylarDiv').html("buraya detaylar gelecek");
+     });
+
+     function loadByLoad() {
+         $('#detaylarDiv').load('/WordMeaning/ListMeaningsByDefId', { "defId":@Model.Id}, function (res) {
+             console.log("işlem tamamlandı");
+         })
+     }
+
+     function loadDetail() {
+
+         $.ajax({
+             url: "/WordMeaning/ListMeaningsByDefId",
+             data: { defId:@Model.Id},
+             success: function (res) {
+                 console.log(res);
+                 $('#detaylarDiv').html(res);
+                 console.log("success function çalışıt");
+             },
+           //  dataType: "JSON"
+         });
+
+     }
+
+    function postMeaning() {
+
+        var params = {
+            Meaning: $('#WordMeaning').val(),
+            WordDefId:'@Model.Id'
+        };
+
+        console.log(params);
+
+        $.ajax({
+            type:"POST",
+              url: "/WordMeaning/AddMeaning",
+              data:params,
+             success: function (res) {
+                 if (res == true) {
+                     loadByLoad();
+                 }
+             },
+           //  dataType: "JSON"
+         });
+    }
+
+    function DeleteMeaning(itTodelete) {
+
+        $.ajax({
+            type: "POST",
+            url: "/WordMeaning/DeleteMeaning",
+            data: { id:itTodelete},
+            success: function (res) {
+                if (res == true) {
+                    loadByLoad();
+                }
+            },
+            //  dataType: "JSON"
+        });
+
+    }
+
 
     //ilkel validaiton
      //function validate() {
@@ -77,7 +152,7 @@
      //        $('#frmCreate').submit();
      //    }
      //}
-   
- </script>
+
+</script>
 
 }

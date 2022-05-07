@@ -1,10 +1,22 @@
 ﻿@model IEnumerable<Hafta07_01WordMaster.Models.WordDefinitionViewModel>
+<style>
+    .masterTr:nth-child(4n+1) {
+        background-color: #f2f2f2;
+    }
+    .masterTr:nth-child(2n+1) {
+        cursor: pointer
+    }
 
+    .masterHead{
+        background-color:#6c87e1;
+    }
+
+</style>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
+    <thead class="masterHead">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -12,30 +24,62 @@
             <th>
                 @Html.DisplayNameFor(model => model.Word)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Meaning)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr id="master_@item.Id" class="masterTr" onclick="showHideDetail(this)">
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Word)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meaning)
-            </td>
+           
             <td>
                 @Html.ActionLink("Edit", "Create", new {  id=item.Id  }) |
                 @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
                 @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
             </td>
         </tr>
+        <tr class="masterTr" style="display:none">
+            <td colspan="3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Meaning</th>
+                            <th>Lang</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var meaning in item.Meanings)
+                {
+                        <tr>
+                            <td>
+                                @meaning.Meaning
+                            </td>
+                            <td title="@meaning.LangName">
+                                @meaning.LangCode
+                            </td>
+                        </tr>
+                }
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
 }
     </tbody>
 </table>
+
+
+<script>
+    var clickkedElement;
+    function showHideDetail(elem) {
+        //  $('#' + elemId).next().toggle(); ilkel
+        $(elem).next().toggle();
+        //elem.next().toggle() yanlış
+       
+    }
+</script>

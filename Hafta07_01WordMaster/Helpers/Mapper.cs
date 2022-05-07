@@ -11,7 +11,7 @@ namespace Hafta07_01WordMaster.Helpers
     {
         public static List<LanguageViewModel> LangListToLangViewModelList(List<Language> liste)
         {
-            
+
             List<LanguageViewModel> result = new List<LanguageViewModel>();
 
             foreach (var lang in liste)
@@ -28,7 +28,7 @@ namespace Hafta07_01WordMaster.Helpers
             return result;
         }
 
-        public static List<WordDefinitionViewModel> DefListToDefViewList(List<WordDefinition>liste)
+        public static List<WordDefinitionViewModel> DefListToDefViewList(List<WordDefinition> liste)
         {
 
             List<WordDefinitionViewModel> result = new List<WordDefinitionViewModel>();
@@ -38,9 +38,22 @@ namespace Hafta07_01WordMaster.Helpers
                 WordDefinitionViewModel wd = new WordDefinitionViewModel()
                 {
                     Id = item.Id,
-                    Meaning = item.Meaning,
                     Word = item.Word
                 };
+
+                foreach (var meaning in item.Meanings)
+                {
+                    wd.Meanings.Add(new WordMeaningViewModel()
+                    {
+                        Id = meaning.Id,
+                        Meaning = meaning.Meaning,
+                        WordDefinitionId = meaning.WordDefinitionId,
+                        LangId = meaning.LangId,
+                        LangName = meaning.Lang.Name,
+                        LangCode = meaning.Lang.Code
+                    });
+
+                }
 
                 result.Add(wd);
             }

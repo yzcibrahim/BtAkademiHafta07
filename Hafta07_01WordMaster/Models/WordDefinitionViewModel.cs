@@ -15,10 +15,9 @@ namespace Hafta07_01WordMaster.Models
         [Required(ErrorMessage ="Kelime boş olamaz")]
         [MyRequired]
         public string Word { get; set; }
-        [Display(Name ="Anlamı")]
-        [Required(ErrorMessage ="anlam boş olamaz")]
-        [MyRequired]
-        public string Meaning { get; set; }
+
+        public List<WordMeaningViewModel> Meanings { get; set; } = new List<WordMeaningViewModel>();
+      
 
 
         //[Range(18,28)]

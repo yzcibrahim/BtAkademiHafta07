@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WordMeaningViewModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meaning)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LangCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WordDefinitionId)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meaning)
+            </td>
+            <td title="@item.LangName">
+                @Html.DisplayFor(modelItem => item.LangCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WordDefinitionId)
+            </td>
+            <td>
+               <input type="button" value="Delete" onclick="DeleteMeaning(@item.Id)" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

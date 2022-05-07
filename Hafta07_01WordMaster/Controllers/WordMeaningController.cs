@@ -16,7 +16,7 @@ namespace Hafta07_01WordMaster.Controllers
         IRepositoryMeaning _repository;
         IRepositoryLanguage _repositoryLanguage;
         IRepositoryWord _repositoryWord;
-        public WordMeaningController(IRepositoryMeaning repository,IRepositoryLanguage repositoryLanguage, IRepositoryWord repositoryWord)
+        public WordMeaningController(IRepositoryMeaning repository, IRepositoryLanguage repositoryLanguage, IRepositoryWord repositoryWord)
         {
             _repository = repository;
             _repositoryLanguage = repositoryLanguage;
@@ -43,6 +43,30 @@ namespace Hafta07_01WordMaster.Controllers
             }
 
             return View(listeModel);
+        }
+
+        public PartialViewResult ListMeaningsByDefId(int defId)
+        {
+            List<WordMeaning> liste = _repository.ListByDefId(defId);
+
+            List<WordMeaningViewModel> listeModel = new List<WordMeaningViewModel>();
+
+            foreach (var item in liste)
+            {
+                WordMeaningViewModel mvm = new WordMeaningViewModel()
+                {
+                    Id = item.Id,
+                    LangId = item.LangId,
+                    Meaning = item.Meaning,
+                    WordDefinitionId = item.WordDefinitionId,
+                    WordDef = item.WordDef?.Word,
+                    LangCode = item.Lang.Code,
+                    LangName = item.Lang.Name
+                };
+                listeModel.Add(mvm);
+            }
+
+            return PartialView(listeModel);
         }
 
 
@@ -89,6 +113,25 @@ namespace Hafta07_01WordMaster.Controllers
         {
             _repository.Delete(id);
             return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public bool AddMeaning(string Meaning, int WordDefId)
+        {
+            WordMeaning entity = new WordMeaning()
+            {
+                LangId = 1,
+                Meaning = Meaning,
+                WordDefinitionId = WordDefId
+            };
+            _repository.Add(entity);
+            return true;
+        }
+
+        public bool DeleteMeaning(int id)
+        {
+            _repository.Delete(id);
+            return true;
         }
 
 

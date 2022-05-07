@@ -20,6 +20,11 @@ namespace DataAccessLayer.Repositories
             return _context.Set<WordMeaning>().Include(c => c.Lang).Include(c => c.WordDef).ToList();
         }
 
+        public List<WordMeaning> ListByDefId(int defId)
+        {
+            return _context.Set<WordMeaning>().Include(c => c.Lang).Where(c => c.WordDefinitionId == defId).ToList();
+        }
+
     }
 
     

@@ -19,7 +19,6 @@ namespace Hafta07_01WordMaster.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
         public PartialViewResult ListPartial(string word)
@@ -39,7 +38,6 @@ namespace Hafta07_01WordMaster.Controllers
                 WordDefinitionViewModel model = new WordDefinitionViewModel()
                 {
                     Id = wordDefinition.Id,
-                    Meaning = wordDefinition.Meaning,
                     Word = wordDefinition.Word
                 };
 
@@ -57,16 +55,8 @@ namespace Hafta07_01WordMaster.Controllers
             WordDefinition wordDefinition = new WordDefinition()
             {
                 Id = model.Id,
-                Word = model.Word,
-                Meaning = model.Meaning
+                Word = model.Word
             };
-
-            if (model.Meaning == model.Word)
-            {
-                ModelState.AddModelError("Word", "kelime aynı olamazlarrr");
-                ModelState.AddModelError("Meaning", "anlam  aynı olamazlarrr");
-                ModelState.AddModelError("", "kelimed ve anlam  aynı olamazlarrr");
-            }
 
             if (!ModelState.IsValid)
             {

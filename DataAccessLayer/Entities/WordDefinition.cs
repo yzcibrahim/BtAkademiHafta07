@@ -10,7 +10,8 @@ namespace DataAccessLayer.Entities
     {
         public int Id { get; set; }
         public string Word { get; set; }
-        public string Meaning { get; set; }
+
+        public List<WordMeaning> Meanings { get; set; }
     }
 
    
