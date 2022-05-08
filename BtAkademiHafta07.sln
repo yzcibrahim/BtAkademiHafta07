@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hafta07_01WordMaster", "Hafta07_01WordMaster\Hafta07_01WordMaster.csproj", "{712F5A7E-518A-4B58-B573-BA4A9BA4AAAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hafta07_01WordMaster", "Hafta07_01WordMaster\Hafta07_01WordMaster.csproj", "{712F5A7E-518A-4B58-B573-BA4A9BA4AAAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{51158F2E-BF90-46A8-93E5-EABC6FC64848}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{51158F2E-BF90-46A8-93E5-EABC6FC64848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{0675D922-ED02-4D36-B9CC-61A6B59A209A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{51158F2E-BF90-46A8-93E5-EABC6FC64848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51158F2E-BF90-46A8-93E5-EABC6FC64848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51158F2E-BF90-46A8-93E5-EABC6FC64848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0675D922-ED02-4D36-B9CC-61A6B59A209A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0675D922-ED02-4D36-B9CC-61A6B59A209A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0675D922-ED02-4D36-B9CC-61A6B59A209A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0675D922-ED02-4D36-B9CC-61A6B59A209A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
