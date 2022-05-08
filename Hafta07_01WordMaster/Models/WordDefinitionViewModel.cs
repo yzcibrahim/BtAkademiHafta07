@@ -1,4 +1,5 @@
-﻿using Hafta07_01WordMaster.Validations;
+﻿using DataAccessLayer.Entities;
+using Hafta07_01WordMaster.Validations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,8 @@ namespace Hafta07_01WordMaster.Models
         public int? LanguageId { get; set; }
 
         public List<WordMeaningViewModel> Meanings { get; set; } = new List<WordMeaningViewModel>();
-      
+
+        public List<Language> Languages = new List<Language>();
 
 
         //[Range(18,28)]

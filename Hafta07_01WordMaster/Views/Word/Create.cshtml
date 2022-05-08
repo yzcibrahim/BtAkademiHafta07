@@ -27,20 +27,33 @@
             </div>
             <div class="form-group">
                 <label asp-for="LanguageId" class="control-label"></label>
-                <input asp-for="LanguageId" class="form-control" />
+                <select class="form-control" id="LanguageId" name="LanguageId">
+                    <option value="0">Seçiniz</option>
+                    @foreach (var lang in Model.Languages)
+                    {
+                        if (lang.Id == Model.LanguageId)
+                        {
+                            <option selected title="@lang.Name" value="@lang.Id">@lang.Code - @lang.Name</option>
+                        }
+                        else
+                        {
+                            <option title="@lang.Name" value="@lang.Id">@lang.Code - @lang.Name</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="LanguageId" class="text-danger"></span>
             </div>
 
             @*<div class="form-group">
-            <label asp-for="Yas" class="control-label"></label>
-            <input asp-for="Yas" class="form-control" />
-            <span asp-validation-for="Yas" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="Yas" class="control-label"></label>
+                    <input asp-for="Yas" class="form-control" />
+                    <span asp-validation-for="Yas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
                 @*  <input type="button" onclick="return submitMyForm()" value="Kaydet" class="btn btn-primary" />*@
@@ -56,7 +69,7 @@
         </div>
         <div class="row">
             <div id="detaylarDiv" class="col-md-10">
-                
+
             </div>
         </div>
     </div>
@@ -69,7 +82,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
+    <script>
 
      $(document).ready(function () {
         // loadDetail();
@@ -158,6 +171,6 @@
      //    }
      //}
 
-</script>
+    </script>
 
 }

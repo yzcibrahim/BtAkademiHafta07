@@ -13,9 +13,11 @@ namespace Hafta07_01WordMaster.Controllers
     public class WordController : Controller
     {
         IRepositoryWord _repository;
-        public WordController(IRepositoryWord repository)
+        IRepositoryLanguage _repositoryLanguage;
+        public WordController(IRepositoryWord repository, IRepositoryLanguage repositoryLanguage)
         {
             _repository = repository;
+            _repositoryLanguage = repositoryLanguage;
         }
         public IActionResult Index()
         {
@@ -33,6 +35,7 @@ namespace Hafta07_01WordMaster.Controllers
         public IActionResult Create(int? id)
         {
             WordDefinitionViewModel model = new WordDefinitionViewModel();
+           
             if (id.HasValue && id > 0)
             {
                 WordDefinition wordDefinition = _repository.GetById(id.Value);
@@ -42,13 +45,11 @@ namespace Hafta07_01WordMaster.Controllers
                     Word = wordDefinition.Word,
                     LanguageId = wordDefinition.LanguageId
                 };
-
-                return View(model);
+               
             }
-            else
-            {
-                return View(model);
-            }
+            model.Languages = _repositoryLanguage.List();
+            return View(model);
+            
         }
 
         [HttpPost]
