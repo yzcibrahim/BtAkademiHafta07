@@ -38,8 +38,12 @@ namespace Hafta07_01WordMaster.Helpers
                 WordDefinitionViewModel wd = new WordDefinitionViewModel()
                 {
                     Id = item.Id,
-                    Word = item.Word
+                    Word = item.Word,
+                    LanguageId=item.LanguageId,
+                    SelectedLang=item.Lang
                 };
+
+                
 
                 foreach (var meaning in item.Meanings)
                 {

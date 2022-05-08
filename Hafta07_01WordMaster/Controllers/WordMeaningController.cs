@@ -116,15 +116,20 @@ namespace Hafta07_01WordMaster.Controllers
         }
 
         [HttpPost]
-        public bool AddMeaning(string Meaning, int WordDefId)
+        public bool AddMeaning(string Meaning, int WordDefId, int selectedLang,int id)
         {
             WordMeaning entity = new WordMeaning()
             {
-                LangId = 1,
+                LangId = selectedLang,
                 Meaning = Meaning,
-                WordDefinitionId = WordDefId
+                WordDefinitionId = WordDefId,
+                Id=id
+                
             };
-            _repository.Add(entity);
+            if (id == 0)
+                _repository.Add(entity);
+            else
+                _repository.Update(entity);
             return true;
         }
 
@@ -134,6 +139,12 @@ namespace Hafta07_01WordMaster.Controllers
             return true;
         }
 
+        public IActionResult GetById(int id)
+        {
+            var entity=_repository.GetById(id);
+
+            return Json(entity);
+        }
 
     }
 }

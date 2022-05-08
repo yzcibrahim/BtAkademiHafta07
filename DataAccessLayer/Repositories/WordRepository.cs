@@ -18,8 +18,30 @@ namespace DataAccessLayer.Repositories
 
         public override List<WordDefinition> List()
         {
-            return _context.Set<WordDefinition>().Include(c=>c.Meanings).ThenInclude(c=>c.Lang).ToList();
+            return _context.Set<WordDefinition>().Include(c=>c.Lang).Include(c=>c.Meanings).ThenInclude(c=>c.Lang).ToList();
         }
+
+        public List<WordDefinition>List(string searchKeyword,int selectedLangId)
+        {
+            var result = new List<WordDefinition>();
+            var query= _context.Set<WordDefinition>().Include(c => c.Lang).Include(c => c.Meanings).ThenInclude(c => c.Lang).Where(c=>true);
+
+            if (!string.IsNullOrWhiteSpace(searchKeyword))
+            {
+                //query = query.Where(c => c.Word == searchKeyword);
+                query = query.Where(c => c.Word.ToUpper().Contains(searchKeyword.ToUpper()));
+            }
+            if(selectedLangId>0)
+            {
+                query = query.Where(c => c.LanguageId == selectedLangId);
+            }
+            
+            result = query.ToList();
+
+            return result;
+        }
+
+
     }
 
     

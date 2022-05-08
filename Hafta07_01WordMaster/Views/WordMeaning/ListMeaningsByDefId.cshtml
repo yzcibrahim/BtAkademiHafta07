@@ -39,7 +39,10 @@
                 @Html.DisplayFor(modelItem => item.WordDefinitionId)
             </td>
             <td>
-               <input type="button" value="Delete" onclick="DeleteMeaning(@item.Id)" />
+               @* <input type="button" value="Delete" onclick="DeleteMeaning(@item.Id)" />*@
+                <i class="bi bi-trash"  style="cursor:pointer" onclick="DeleteMeaning(@item.Id)"></i>
+                <i class="bi bi-pen-fill" style="cursor:pointer" onclick="EditMeaning(@item.Id)"></i>
+              @*  <input type="button" value="Edit" onclick="EditMeaning(@item.Id)" />*@
             </td>
         </tr>
 }

@@ -21,15 +21,25 @@ namespace Hafta07_01WordMaster.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Languages = _repositoryLanguage.List();
             return View();
         }
-        public PartialViewResult ListPartial(string word)
+        public PartialViewResult ListPartial(string word, int selectedLang)
         {
-            List<WordDefinition> liste = _repository.List();
+            List<WordDefinition> liste = _repository.List(word, selectedLang);
+
+            //if(!String.IsNullOrEmpty(word))
+            //    liste = liste.Where(c => c.Word == word).ToList();
 
             List<WordDefinitionViewModel> model = Mapper.DefListToDefViewList(liste);
 
             return PartialView(model);
+        }
+
+        public IActionResult getWords(string word)
+        {
+            var result=_repository.List(word, 0);
+            return Json(result.Select(c=>c.Word).ToList());
         }
 
         public IActionResult Create(int? id)

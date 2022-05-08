@@ -9,6 +9,6 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IRepositoryWord:IRepositoryBase<WordDefinition>
     {
-        
+        List<WordDefinition> List(string searchKeyword,int selectedLangId);
     }
 }

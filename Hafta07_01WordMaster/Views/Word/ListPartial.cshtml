@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Word)
             </th>
+            <th>
+               Language
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,11 +39,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Word)
             </td>
-           
+            <td title="@item.SelectedLang.Name">
+                @Html.DisplayFor(modelItem => item.SelectedLang.Code)
+            </td>
+
             <td>
-                @Html.ActionLink("Edit", "Create", new {  id=item.Id  }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                @Html.ActionLink("Edit", "Create", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
         <tr class="masterTr" style="display:none">

@@ -1,10 +1,29 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using DataAccessLayer.Entities;
 @{
 }
 <h3>Kelimeler</h3>
 <img id="loading" src="~/gif/loading.gif" height="40" />
+<div class="row">
+    <div class="col-md-4">
+        <input type="text" class="form-control" onkeyup="refreshByKeyUp()" onkeypress="refreshByKeypress(event)" id="searhKeyword" />
+    </div>
+    <div class="col-md-4">
+        <select onchange="search()" class="form-control" id="selectedLangId">
+            <option title="" value="0">Seçiniz</option>
+            @foreach (var lang in (List<Language>)ViewBag.Languages)
+            {
+                <option title="@lang.Name" value="@lang.Id">@lang.Code</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-success" value="Ara" onclick="search()" />
+
+    </div>
+</div>
 <div id="wordListTable">
 
 </div>
@@ -17,13 +36,50 @@
             //  $("#wordListTable").load("/Word/ListPartial?test=x");
         });
 
-        function refresh() {
-            $("#wordListTable").load("/Word/ListPartial", { word: "x" },
+        function refresh(searchKeyword,selectedLang) {
+            $("#wordListTable").load("/Word/ListPartial", { word: searchKeyword, selectedLang: selectedLang },
                 function () {
                     console.log("datalar geldiiii");
                     $("#loading").hide();
                 });
         }
+
+        function search() {
+           
+            refresh($('#searhKeyword').val(), $('#selectedLangId').val());
+        }
+
+        function refreshByKeypress(event) {
+            //event.preventDefault();
+            if (event.keyCode == 13) {
+                search();
+            }
+           
+        }
+
+        function refreshByKeyUp() {
+            $.get("/word/getWords", { word: $('#searhKeyword').val() }, function (res) {
+                $("#searhKeyword").autocomplete({
+                    source: res,
+                    select: function (event, ui) {
+                        refresh(ui.item.label, $('#selectedLangId').val());
+                        return;
+                    }
+                });
+
+                if ($('#searhKeyword').val().length >= 3) {
+                    search();
+                }
+
+            })
+
+
+           
+        }
+
+
+       
+      
 
     </script>
 

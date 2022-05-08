@@ -64,11 +64,18 @@
     <div class="col-md-7">
         <div>
             <input type="text" id="WordMeaning" />
+            <select id="selectedLang">
+                <option value="0">Seçiniz</option>
+                @foreach (var lang in Model.Languages)
+                {
+                    <option title="@lang.Name" value="@lang.Id">@lang.Code - @lang.Name</option>
 
+                }
+            </select>
             <input class="btn btn-success" type="button" onclick="postMeaning()" value="Kaydet" />
         </div>
         <div class="row">
-            <div id="detaylarDiv" class="col-md-10">
+            <div id="detaylarDiv" class="col-md-12">
 
             </div>
         </div>
@@ -79,10 +86,43 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="WordMeaningIdP" value="0" />
+                <div class="form-group">
+                    Meaning:<input class="form-control" type="text" id="WordMeaningP" />
+                </div>
+                        <div class="form-group">
+                            Language:<select class="form-control" id="selectedLangP">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var lang in Model.Languages)
+                                {
+                                    <option title="@lang.Name" value="@lang.Id">@lang.Code - @lang.Name</option>
+
+                                }
+                            </select>
+                        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="postMeaningPopup()" class="btn btn-primary" data-dismiss="modal">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
+<script>
 
      $(document).ready(function () {
         // loadDetail();
@@ -115,7 +155,8 @@
 
         var params = {
             Meaning: $('#WordMeaning').val(),
-            WordDefId:'@Model.Id'
+            WordDefId: '@Model.Id',
+            selectedLang: $('#selectedLang').val()
         };
 
         console.log(params);
@@ -147,7 +188,51 @@
             //  dataType: "JSON"
         });
 
+        }
+
+        function EditMeaning(itToEdit) {
+
+         //   $('#exampleModal').modal('show');
+            $.ajax({
+                type: "GET",
+                url: "/WordMeaning/GetById",
+                data: { id: itToEdit },
+                success: function (res) {
+                    $('#WordMeaningIdP').val(res.id);
+                    $('#selectedLangP').val(res.langId);
+                    $('#WordMeaningP').val(res.meaning);
+                    $('#exampleModal').modal('show');
+                },
+                //  dataType: "JSON"
+            });
+
+        }
+
+         function postMeaningPopup() {
+
+        var params = {
+            Meaning: $('#WordMeaningP').val(),
+            WordDefId: '@Model.Id',
+            selectedLang: $('#selectedLangP').val(),
+            id: $('#WordMeaningIdP').val()
+        };
+
+        console.log(params);
+
+        $.ajax({
+            type:"POST",
+              url: "/WordMeaning/AddMeaning",
+              data:params,
+             success: function (res) {
+                 if (res == true) {
+                     loadByLoad();
+                 }
+             },
+           //  dataType: "JSON"
+         });
     }
+
+
 
 
     //ilkel validaiton
@@ -171,6 +256,6 @@
      //    }
      //}
 
-    </script>
+</script>
 
 }

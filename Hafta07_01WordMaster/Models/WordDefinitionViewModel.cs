@@ -17,11 +17,14 @@ namespace Hafta07_01WordMaster.Models
         [MyRequired]
         public string Word { get; set; }
 
+        [Range(1,int.MaxValue,ErrorMessage ="lang seçiniz")]
         public int? LanguageId { get; set; }
 
         public List<WordMeaningViewModel> Meanings { get; set; } = new List<WordMeaningViewModel>();
 
         public List<Language> Languages = new List<Language>();
+
+        public Language SelectedLang { get; set; } = new Language();
 
 
         //[Range(18,28)]
