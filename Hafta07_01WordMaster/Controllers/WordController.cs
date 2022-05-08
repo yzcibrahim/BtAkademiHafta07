@@ -32,20 +32,22 @@ namespace Hafta07_01WordMaster.Controllers
 
         public IActionResult Create(int? id)
         {
+            WordDefinitionViewModel model = new WordDefinitionViewModel();
             if (id.HasValue && id > 0)
             {
                 WordDefinition wordDefinition = _repository.GetById(id.Value);
-                WordDefinitionViewModel model = new WordDefinitionViewModel()
+                model = new WordDefinitionViewModel()
                 {
                     Id = wordDefinition.Id,
-                    Word = wordDefinition.Word
+                    Word = wordDefinition.Word,
+                    LanguageId = wordDefinition.LanguageId
                 };
 
                 return View(model);
             }
             else
             {
-                return View();
+                return View(model);
             }
         }
 
@@ -55,7 +57,8 @@ namespace Hafta07_01WordMaster.Controllers
             WordDefinition wordDefinition = new WordDefinition()
             {
                 Id = model.Id,
-                Word = model.Word
+                Word = model.Word,
+                LanguageId = model.LanguageId
             };
 
             if (!ModelState.IsValid)
@@ -63,7 +66,7 @@ namespace Hafta07_01WordMaster.Controllers
                 return View(model);
             }
 
-           
+
 
             #region ilke validations
             //if(String.IsNullOrEmpty(model.Meaning))

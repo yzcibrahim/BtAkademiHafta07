@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form id="frmCreate" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (Model != null)
+            @if (Model.Id > 0)
             {
                 <div class="form-group">
                     <label asp-for="Id" class="control-label"></label>
@@ -25,17 +25,22 @@
                 <input asp-for="Word" class="form-control" />
                 <span asp-validation-for="Word" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="LanguageId" class="control-label"></label>
+                <input asp-for="LanguageId" class="form-control" />
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
 
             @*<div class="form-group">
-                    <label asp-for="Yas" class="control-label"></label>
-                    <input asp-for="Yas" class="form-control" />
-                    <span asp-validation-for="Yas" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>*@
+            <label asp-for="Yas" class="control-label"></label>
+            <input asp-for="Yas" class="form-control" />
+            <span asp-validation-for="Yas" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
                 @*  <input type="button" onclick="return submitMyForm()" value="Kaydet" class="btn btn-primary" />*@

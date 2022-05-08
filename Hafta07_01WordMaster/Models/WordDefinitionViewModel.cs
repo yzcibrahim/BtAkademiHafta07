@@ -16,6 +16,8 @@ namespace Hafta07_01WordMaster.Models
         [MyRequired]
         public string Word { get; set; }
 
+        public int? LanguageId { get; set; }
+
         public List<WordMeaningViewModel> Meanings { get; set; } = new List<WordMeaningViewModel>();
       
 
