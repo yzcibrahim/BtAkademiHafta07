@@ -5,11 +5,25 @@ namespace ConsoleApp1
 {
     class Program
     {
+        public static int findDifference(string str)
+        {
+            int ACount = 0;
+            int BCount = 0;
+            for (int i= 0;i<str.Length;i++)
+            {
+                if (str[i].ToString() == "A")
+                    ACount++;
+                else if(str[i].ToString() == "B")
+                    BCount++;
+            }
+            return Math.Abs(ACount - BCount);
+
+            return 0;
+
+        }
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Ceil"+Math.Ceiling(3.0));
-            Console.WriteLine("Round" + Math.Round(3.4));
+            
             //Console.WriteLine("Hello World!");
             //123=>1 * 100 + 20 * 10 + 3 * 1;
 
