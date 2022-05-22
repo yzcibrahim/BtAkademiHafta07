@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordMasterApi", "WordMaster
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testref", "testref\testref.csproj", "{8B1062E9-16AA-42F2-B78D-53B382080104}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordApi", "WordApi\WordApi.csproj", "{01AAFF3A-9185-44D1-A926-4D134D219D87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8B1062E9-16AA-42F2-B78D-53B382080104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B1062E9-16AA-42F2-B78D-53B382080104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B1062E9-16AA-42F2-B78D-53B382080104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01AAFF3A-9185-44D1-A926-4D134D219D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AAFF3A-9185-44D1-A926-4D134D219D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01AAFF3A-9185-44D1-A926-4D134D219D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01AAFF3A-9185-44D1-A926-4D134D219D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
