@@ -35,10 +35,12 @@ namespace WordApi.Controllers
 
         // POST api/<WordsController>
         [HttpPost]
-        public void Post([FromBody] WordDefinition entity)
+        public IActionResult Post([FromBody] WordDefinition entity)
         {
             _context.WordDefinitions.Add(entity);
             _context.SaveChanges();
+            return new CreatedResult("", "Başarıyla Kaydedildi");
+            // return new StatusCodeResult(201);
         }
 
         // PUT api/<WordsController>/5
@@ -69,9 +71,15 @@ namespace WordApi.Controllers
 
         // DELETE api/<WordsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var silinecek = _context.WordDefinitions.Include(c=>c.Meanings).FirstOrDefault(c=>c.Id==id);
+
+            if(silinecek==null)
+            {
+
+                return NotFound("Kayıt Bulunamadı");
+            }
 
             foreach(var meaning in silinecek.Meanings)
             {
@@ -80,6 +88,8 @@ namespace WordApi.Controllers
 
             _context.WordDefinitions.Remove(silinecek);
             _context.SaveChanges();
+
+            return Ok(true);
         }
 
         [HttpDelete("meaning/{id}")]
