@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WordApi.Dtos;
 using WordApi.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,10 +22,26 @@ namespace WordApi.Controllers
             _context = context;
         }
         // GET: api/<WordsController>
-        [HttpGet]
-        public IEnumerable<WordDefinition> Get()
+        [HttpGet("{pageNum}/{pageCount}/{keyword?}")]
+       // [Authorize]
+        public WordDefListResult Get(int pageNum=1, int pageCount=3, string keyword = "")
         {
-            return _context.WordDefinitions.Include(c=>c.Meanings).ToList();
+            WordDefListResult res = new WordDefListResult();
+
+            if (pageNum < 1) pageNum = 1;
+            if (pageCount <= 0) pageCount = 3;
+            int skip = (pageNum-1) * pageCount;
+            var result = _context.WordDefinitions.Include(c => c.Meanings).Where(c=>c.Word.Contains(keyword)).Skip(skip).Take(pageCount).ToList();
+
+
+            double totalRecords=_context.WordDefinitions.Count(c=>c.Word.Contains(keyword));
+
+            res.Liste = result;
+            res.TotalPageCount = (int)Math.Ceiling(totalRecords / pageCount);
+
+
+            return res;
+          
         }
 
         // GET api/<WordsController>/5

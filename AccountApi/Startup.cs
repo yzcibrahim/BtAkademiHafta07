@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WordApi
+namespace AccountApi
 {
     public class Startup
     {
@@ -30,11 +30,14 @@ namespace WordApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WordMasterDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MssqlConnectionString")));
+
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WordApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AccountApi", Version = "v1" });
             });
+
             services.AddCors();
 
             var key = "özel bir anahtar asd";
@@ -56,6 +59,7 @@ namespace WordApi
                 };
 
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,10 +69,9 @@ namespace WordApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WordApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccountApi v1"));
             }
-
-            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseRouting();
 
