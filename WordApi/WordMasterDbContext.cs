@@ -18,7 +18,9 @@ namespace WordApi
         //public DbSet<Language> Languages { get; set; }
         public DbSet<WordMeaning> WordMeanings { get; set; }
 
-       
+        public DbSet<AnswerStastistic>AnswerStastistics{ get; set; }
+
+
 
     }
 }

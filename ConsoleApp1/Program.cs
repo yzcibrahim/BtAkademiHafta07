@@ -23,6 +23,13 @@ namespace ConsoleApp1
         }
         static void Main(string[] args)
         {
+
+            Soru();
+            return;
+            string a1 = "asd";
+
+            Console.WriteLine("hello" + a1);
+            Console.WriteLine($"hello {a1}");
             
             //Console.WriteLine("Hello World!");
             //123=>1 * 100 + 20 * 10 + 3 * 1;
@@ -46,6 +53,77 @@ namespace ConsoleApp1
 
             ///
             ///
+        }
+
+        private static void Soru()
+        {
+            #region soru
+            /*Have the function StringChallenge(str) take the str parameter and swap the case of each character. Then, if a letter is between two numbers (without separation), switch the places of the two numbers. For example: if str is "6Hello4 -8World, 7 yes3" the output should be 4hELLO6 -8wORLD, 7 YES3.
+                Examples
+                Input: "Hello -5LOL6"
+                Output: hELLO -6lol5
+                Input: "2S 6 du5d4e"
+                Output: 2s 6 DU4D5E
+                Browse Resources
+                Search for any help or documentation you might need for this problem. For example: array indexing, Ruby hash tables, etc.
+
+            */
+            #endregion
+            while (true)
+            {
+                string deger = Console.ReadLine();
+                List<string> res = new List<string>();
+                int firstNumindex = -1;
+                int secondNumIndex = -1;
+                
+                for (int i = 0; i < deger.Length; i++)
+                {
+                    if (deger[i].ToString() == " ")
+                    {
+                        firstNumindex = -1;
+                    }
+                    if (int.TryParse(deger[i].ToString(), out int a))
+                    {
+                        res.Add(deger[i].ToString());
+                        if(firstNumindex==-1)
+                        {
+                            firstNumindex = i;
+                        }
+                        else
+                        {
+                            secondNumIndex = i;
+                        }
+
+                        if (secondNumIndex != -1 && firstNumindex != -1)
+                        {
+                            string temp = res[firstNumindex];
+                            res[firstNumindex] = res[secondNumIndex];
+                            res[secondNumIndex] = temp;
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (deger[i].ToString().ToUpper() == deger[i].ToString())
+                        {
+                            res.Add(deger[i].ToString().ToLower());
+                        }
+                        else
+                        {
+                            res.Add(deger[i].ToString().ToUpper());
+                        }
+                    }
+                }
+
+                string finalRes = "";// string.Join('', res);
+              foreach(var item in res)
+                {
+                    finalRes += item;
+                }
+
+
+            }
+
         }
 
         private static List<int> basamaklarinaAyirByStr(int a)

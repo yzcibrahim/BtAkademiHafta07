@@ -16,7 +16,7 @@ namespace WordApi.Controllers
     [ApiController]
     public class WordsController : ControllerBase
     {
-        WordMasterDbContext _context;
+        WordMasterDbContext  _context;
         public WordsController(WordMasterDbContext context)
         {
             _context = context;
@@ -117,6 +117,88 @@ namespace WordApi.Controllers
             _context.WordMeanings.Remove(silinecek);
             _context.SaveChanges();
         }
+
+
+        [HttpGet("getRandom/{rowNum}")]
+        public WordDefinition GetRandomWord(int rowNum)
+        {
+           return _context.WordDefinitions.Skip(rowNum - 1).Take(1).FirstOrDefault();
+
+        }
+
+        [HttpGet("CheckAnswer/{answer}/{wordDefId}/{testcount}")]
+        [Authorize]
+        public CheckAnswerResultDto CheckAnswer(string answer, int wordDefId, int testcount)
+        {
+            
+            CheckAnswerResultDto res = new CheckAnswerResultDto();
+            res.TestCount = testcount;
+
+            if (_context.WordMeanings.Any(c => c.WordDefinitionId == wordDefId && c.Meaning.ToUpper() == answer.ToUpper()))
+            {
+                res.Result = true;
+            }
+            else
+            {
+                res.Result = false;
+            }
+
+            var userName = Request.HttpContext.User.Identity.Name;
+            var existing = _context.AnswerStastistics.FirstOrDefault(c => c.Username == userName && c.WordDefId == wordDefId);
+            if (existing==null)
+            {
+                AnswerStastistic entity = new AnswerStastistic();
+                entity.AskCount = 1;
+                entity.CorrectCount = res.Result ? 1 : 0;
+                entity.Username = userName;
+                entity.WordDefId = wordDefId;
+                _context.AnswerStastistics.Add(entity);
+                _context.SaveChanges();
+            }
+            else
+            {
+                existing.AskCount++;
+                existing.CorrectCount= res.Result ? existing.CorrectCount+1 : existing.CorrectCount;
+                _context.SaveChanges();
+            }
+
+            int totalRecord = _context.WordDefinitions.Count();
+            if (res.TestCount%3==0)
+            {
+                Random rnd1 = new Random();
+                var rndRes = rnd1.Next(0, totalRecord);
+                res.WordDef = _context.WordDefinitions.Skip(rndRes).Take(1).First();
+                return res;
+            }
+
+            var totalAsks = _context.AnswerStastistics.Where(c => c.Username == userName).ToList();
+            
+            Dictionary<int, double> wordStatistic = new Dictionary<int, double>();
+            var existingWords = _context.WordDefinitions.ToList();
+            
+            foreach(var item in existingWords)
+            {
+                var existingStatistic = totalAsks.FirstOrDefault(c => c.WordDefId == item.Id);
+                if (existingStatistic == null)
+                    wordStatistic.Add(item.Id, 100);
+                else
+                {
+                    var oran = (double)(existingStatistic.AskCount - existingStatistic.CorrectCount) / (double)existingStatistic.AskCount * 100;
+                    wordStatistic.Add(item.Id, oran);
+                }
+            }
+
+            List<int> wordsToAsk = wordStatistic.Where(c=>c.Key!=wordDefId).OrderByDescending(c => c.Value).Select(c=>c.Key).Take(3).ToList();
+
+            Random rnd = new Random();
+            int rowNum=rnd.Next(0, 2);
+            var lastId = wordsToAsk[rowNum];
+            res.WordDef = _context.WordDefinitions.First(c=>c.Id==lastId);
+
+            return res;
+        }
+
+
 
 
     }
